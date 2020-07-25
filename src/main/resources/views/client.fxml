@@ -37,7 +37,7 @@
                   <Insets top="10.0" />
                </HBox.margin>
             </PasswordField>
-            <Button fx:id="connectButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Quickconnect">
+            <Button fx:id="connectButton" mnemonicParsing="false" onAction="#openPassword" prefHeight="27.0" prefWidth="105.0" text="Quickconnect">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
