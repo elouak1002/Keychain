@@ -13,9 +13,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
+
 import java.io.IOException;
 
-public class Client {
+public class ClientController {
 
 	@FXML private TextField usernameField;
 	@FXML private PasswordField passwordField;

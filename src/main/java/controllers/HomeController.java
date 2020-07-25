@@ -8,24 +8,22 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
-/**
- * @author Abla
- */
-public class Home extends Application {
+public class HomeController extends Application {
 
+	private Parent root;
 
 	public void start(Stage stage) {
 		
-		Parent root = null;
-		
+		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/views/client.fxml"));
+
 		try {
-			root = FXMLLoader.load(getClass().getResource("/views/client.fxml"));
+			this.root = homeLoader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(this.root);
 		stage.setScene(scene);
 		stage.setTitle("Keychain");
 		stage.setResizable(false);
