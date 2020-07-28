@@ -14,16 +14,16 @@ public class HomeController extends Application {
 
 	public void start(Stage stage) {
 		
-		FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/views/client.fxml"));
+		FXMLLoader clientLoader = new FXMLLoader(getClass().getResource("/views/client.fxml"));
 
 		try {
-			this.root = homeLoader.load();
+			this.root = clientLoader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		Scene scene = new Scene(this.root);
+		scene.getStylesheets().add("/views/gui.css");
 		stage.setScene(scene);
 		stage.setTitle("Keychain");
 		stage.setResizable(false);
