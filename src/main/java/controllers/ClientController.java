@@ -3,20 +3,16 @@ package controllers;
 import javafx.fxml.FXML;
 
 import javafx.scene.Parent;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.stage.*;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Modality;
-import services.PasswordService;
-import javafx.scene.layout.HBox;
 
+import services.ZipService;
+import services.AESService;
+
+import java.io.File;
 import java.io.IOException;
 
 public class ClientController {
@@ -39,8 +35,93 @@ public class ClientController {
 	}
 
 	@FXML
-	public void openPassword() {
-		passwordWindow = new Stage();
+	public void processEncryption() {
+		Window stage = encryptButton.getScene().getWindow();
+
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+
+		File selectedDirectory = directoryChooser.showDialog(stage);
+		if (selectedDirectory == null) {
+			return ;
+		}
+
+		String password = passwordDialog();
+		if (password.length() < 8) {
+			new Alert(Alert.AlertType.ERROR, "Please enter an 8-digit password next time.", ButtonType.CLOSE).showAndWait();
+			connectionStatus.setText("Encryption failed");
+			return ;
+		}
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.setInitialFileName(selectedDirectory.getName() +".enc");
+		File file = fileChooser.showSaveDialog(stage);
+
+		if (file == null) {
+			return ;
+		}
+
+		try {
+			File newName = null;
+			if (!selectedDirectory.getAbsolutePath().contains(".zip")) {
+				newName = new File(selectedDirectory.getAbsolutePath() + ".zip");
+				selectedDirectory.renameTo(newName);
+			} else {
+				newName = selectedDirectory;
+			}
+			ZipService.zipDirectory(newName.getAbsolutePath());
+			AESService.encryptFile(newName.getAbsolutePath(),file.getAbsolutePath(),password);
+			newName.delete();
+
+			connectionStatus.setText("Encryption succeed");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			new Alert(Alert.AlertType.ERROR, "An error occurred, please retry.", ButtonType.CLOSE).showAndWait();
+			connectionStatus.setText("Encryption failed");
+		}
+
+	}
+
+	@FXML
+	public void processDecryption() {
+		Window stage = decryptButton.getScene().getWindow();
+
+		FileChooser fileChooser = new FileChooser();
+
+		File selectedFile = fileChooser.showOpenDialog(stage);
+		if (selectedFile == null) {
+			return ;
+		}
+
+		String password = passwordDialog();
+		if (password.length() < 8) {
+			new Alert(Alert.AlertType.ERROR, "Please enter an 8-digit password next time.", ButtonType.CLOSE).showAndWait();
+			connectionStatus.setText("Decryption failed");
+			return ;
+		}
+
+
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		File directoryName = directoryChooser.showDialog(stage);
+
+
+		try {
+			AESService.decryptFile(selectedFile.getAbsolutePath(),directoryName.getAbsolutePath()+".zip",password);
+			selectedFile.delete();
+			ZipService.unzipFile(directoryName.getAbsolutePath()+".zip",directoryName.getAbsolutePath());
+			connectionStatus.setText("Decryption succeed");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			new Alert(Alert.AlertType.ERROR, "An error occurred, please retry.", ButtonType.CLOSE).showAndWait();
+			connectionStatus.setText("Encryption failed");
+		}
+
+	}
+
+	public String passwordDialog() {
+		Stage passwordWindow = new Stage();
 		passwordWindow.initModality(Modality.APPLICATION_MODAL);
 		Parent root = null;
 		FXMLLoader passwordLoader = new FXMLLoader(getClass().getResource("/views/password.fxml"));
@@ -51,23 +132,20 @@ public class ClientController {
 			e.printStackTrace();
 		}
 
-		PasswordService service = new PasswordService();
-		service.addListener(this);
-
 		PasswordController passwordController = passwordLoader.getController();
-		passwordController.injectService(service);
-
+		passwordController.setStage(passwordWindow);
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/views/gui.css");
 		passwordWindow.setScene(scene);
 		passwordWindow.setTitle("Password");
 		passwordWindow.setResizable(false);
-		passwordWindow.show();
+		passwordWindow.showAndWait();
 
+		return passwordController.getPassword();
 	}
 
-	@FXML
+	/*@FXML
 	public void openAccount() {
 		accountWindow = new Stage();
 		accountWindow.initModality(Modality.APPLICATION_MODAL);
@@ -80,8 +158,6 @@ public class ClientController {
 			e.printStackTrace();
 		}
 
-		PasswordService service = new PasswordService();
-
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/views/gui.css");
 		accountWindow.setScene(scene);
@@ -89,19 +165,29 @@ public class ClientController {
 		accountWindow.setResizable(false);
 		accountWindow.show();
 
-	}
+	}*/
 
+	/*@FXML
+	public void openPassword() {
+		passwordWindow = new Stage();
+		passwordWindow.initModality(Modality.APPLICATION_MODAL);
+		Parent root = null;
+		FXMLLoader passwordLoader = new FXMLLoader(getClass().getResource("/views/password.fxml"));
 
-
-
-	public void listenPassword(boolean passwordTrue) {
-		passwordWindow.close();
-		if (passwordTrue) {
-			connectionStatus.setText("The connection is set up.");
+		try {
+			root = passwordLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		else {
-			connectionStatus.setText("The connection has failed.");
-		}
-	}
 
+		PasswordController passwordController = passwordLoader.getController();
+
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/views/gui.css");
+		passwordWindow.setScene(scene);
+		passwordWindow.setTitle("Password");
+		passwordWindow.setResizable(false);
+		passwordWindow.show();
+
+	}*/
 }

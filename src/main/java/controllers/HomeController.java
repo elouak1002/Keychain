@@ -25,7 +25,7 @@ public class HomeController extends Application {
 		Scene scene = new Scene(this.root);
 		scene.getStylesheets().add("/views/gui.css");
 		stage.setScene(scene);
-		stage.setTitle("Keychain");
+		stage.setTitle("Archived and Encrypted");
 		stage.setResizable(false);
 		stage.show();
 	}

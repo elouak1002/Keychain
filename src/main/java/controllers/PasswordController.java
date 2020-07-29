@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 import javafx.scene.layout.VBox;
-import services.PasswordService;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -32,21 +32,19 @@ public class PasswordController {
 
     private ObservableList<Node> list;
 
-    private PasswordService service = null;
+    private Stage stage;
 
+    private StringBuffer buffer;
 
     @FXML
     public void initialize() {
 
         this.list = passwordGrid.getChildren();
+        this.buffer = new StringBuffer();
 
         vRoot.setId("cb");
         fillGrid();
         registerEvents();
-    }
-
-    public void injectService(PasswordService service) {
-        this.service = service;
     }
 
     private void registerEvents() {
@@ -61,7 +59,7 @@ public class PasswordController {
     private void buttonEvent(MouseEvent event) {
         Button source = (Button) event.getSource();
         if (!source.getText().equals("")) {
-            service.push(Integer.parseInt(source.getText()));
+            push(Integer.parseInt(source.getText()));
             statusLabel.setText("");
 
             fillGrid();
@@ -106,6 +104,21 @@ public class PasswordController {
         }
 
         return randomPos;
+    }
+
+    private void push(int number) {
+        this.buffer.append(number);
+        if (this.buffer.toString().length() == 8) {
+            this.stage.close();
+        }
+    }
+
+    public String getPassword() {
+        return this.buffer.toString();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
 }

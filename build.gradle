@@ -2,13 +2,16 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-    
 }
 
 apply plugin: 'java'
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile 'org.zeroturnaround:zt-zip:1.14'
 }
 
 javafx {

@@ -10,6 +10,7 @@
 
 <VBox fx:id="vRoot" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientController">
    <children>
+      <!--
       <HBox minWidth="640.0" prefHeight="45.0" prefWidth="640.0">
          <children>
             <Label prefHeight="27.0" prefWidth="85.0" text="Username:">
@@ -35,12 +36,12 @@
                   <Insets top="10.0" />
                </HBox.margin>
             </PasswordField>
-            <Button fx:id="connectButton" mnemonicParsing="false" onAction="#openPassword" prefHeight="27.0" prefWidth="120.0" text="Quickconnect">
+            <Button fx:id="connectButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="120.0" text="Quickconnect">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="accountButton" mnemonicParsing="false" onAction="#openAccount" text="Create Account">
+            <Button fx:id="accountButton" mnemonicParsing="false" text="Create Account">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
@@ -50,14 +51,15 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox prefHeight="570.0" prefWidth="960.0">
+      -->
+      <HBox prefHeight="615.0" prefWidth="960.0">
          <children>
-            <Button fx:id="encryptButton" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0" text="Encrypt">
+            <Button fx:id="encryptButton" mnemonicParsing="false"  onAction="#processEncryption" prefHeight="250.0" prefWidth="250.0" text="Encrypt">
                <HBox.margin>
                   <Insets left="200.0" top="150.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="decryptButton" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0" text="Decrypt">
+            <Button fx:id="decryptButton" mnemonicParsing="false" onAction="#processDecryption" prefHeight="250.0" prefWidth="250.0" text="Decrypt">
                <HBox.margin>
                   <Insets left="30.0" top="150.0" />
                </HBox.margin>
@@ -66,12 +68,12 @@
       </HBox>
       <HBox prefHeight="30.0" prefWidth="200.0">
          <children>
-            <Label prefHeight="27.0" prefWidth="140.0" text="Connection Status:">
+            <Label prefHeight="27.0" prefWidth="140.0" text="Application Status:">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
             </Label>
-            <Label fx:id="connectionStatus" prefHeight="27.0" prefWidth="200.0" text="The connection status" />
+            <Label fx:id="connectionStatus" prefHeight="27.0" prefWidth="200.0" text="Waiting for action..." />
          </children>
       </HBox>
    </children>
