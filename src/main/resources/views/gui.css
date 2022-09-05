@@ -16,5 +16,9 @@ Label, Button {
 }
 
 Button {
-    -fx-opacity: 0.70;
+    -fx-opacity: 0.65;
+}
+
+.root {
+    -fx-font-family: "Times New Roman";
 }

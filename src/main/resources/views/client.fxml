@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,48 +10,6 @@
 
 <VBox fx:id="vRoot" prefHeight="640.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientController">
    <children>
-      <!--
-      <HBox minWidth="640.0" prefHeight="45.0" prefWidth="640.0">
-         <children>
-            <Label prefHeight="27.0" prefWidth="85.0" text="Username:">
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="usernameField" alignment="TOP_LEFT" prefHeight="27.0" prefWidth="130.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </TextField>
-            <Label prefHeight="27.0" prefWidth="80.0" text="Password:">
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
-            </Label>
-            <PasswordField fx:id="passwordField" prefHeight="27.0" prefWidth="118.0">
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </PasswordField>
-            <Button fx:id="connectButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="120.0" text="Quickconnect">
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="accountButton" mnemonicParsing="false" text="Create Account">
-               <HBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      -->
       <HBox prefHeight="615.0" prefWidth="960.0">
          <children>
             <Button fx:id="encryptButton" mnemonicParsing="false"  onAction="#processEncryption" prefHeight="250.0" prefWidth="250.0" text="Encrypt">

@@ -47,8 +47,11 @@ public class ClientController {
 
 		String password = passwordDialog();
 		if (password.length() < 8) {
-			new Alert(Alert.AlertType.ERROR, "Please enter an 8-digit password next time.", ButtonType.CLOSE).showAndWait();
+
+			Alert alert = createErrorAlert("Please enter an 8-digit password next time.");
+			alert.showAndWait();
 			connectionStatus.setText("Encryption failed");
+
 			return ;
 		}
 
@@ -76,8 +79,8 @@ public class ClientController {
 			connectionStatus.setText("Encryption succeed");
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			new Alert(Alert.AlertType.ERROR, "An error occurred, please retry.", ButtonType.CLOSE).showAndWait();
+			Alert alert = createErrorAlert("An error occurred, please retry.");
+			alert.showAndWait();
 			connectionStatus.setText("Encryption failed");
 		}
 
@@ -96,7 +99,9 @@ public class ClientController {
 
 		String password = passwordDialog();
 		if (password.length() < 8) {
-			new Alert(Alert.AlertType.ERROR, "Please enter an 8-digit password next time.", ButtonType.CLOSE).showAndWait();
+
+			Alert alert = createErrorAlert("Please enter an 8-digit password next time.");
+			alert.showAndWait();
 			connectionStatus.setText("Decryption failed");
 			return ;
 		}
@@ -113,8 +118,8 @@ public class ClientController {
 			connectionStatus.setText("Decryption succeed");
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			new Alert(Alert.AlertType.ERROR, "An error occurred, please retry.", ButtonType.CLOSE).showAndWait();
+			Alert alert = createErrorAlert("An error occurred, please retry.");
+			alert.showAndWait();
 			connectionStatus.setText("Encryption failed");
 		}
 
@@ -145,49 +150,13 @@ public class ClientController {
 		return passwordController.getPassword();
 	}
 
-	/*@FXML
-	public void openAccount() {
-		accountWindow = new Stage();
-		accountWindow.initModality(Modality.APPLICATION_MODAL);
-		Parent root = null;
-		FXMLLoader passwordLoader = new FXMLLoader(getClass().getResource("/views/account.fxml"));
+	public Alert createErrorAlert(String text) {
+		Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.CLOSE);
+		DialogPane dialogPane = alert.getDialogPane();
+		
+		dialogPane.getStylesheets().add(getClass().getResource("/views/myDialogs.css").toExternalForm());
+		dialogPane.getStyleClass().add("myDialog");
 
-		try {
-			root = passwordLoader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/views/gui.css");
-		accountWindow.setScene(scene);
-		accountWindow.setTitle("Password");
-		accountWindow.setResizable(false);
-		accountWindow.show();
-
-	}*/
-
-	/*@FXML
-	public void openPassword() {
-		passwordWindow = new Stage();
-		passwordWindow.initModality(Modality.APPLICATION_MODAL);
-		Parent root = null;
-		FXMLLoader passwordLoader = new FXMLLoader(getClass().getResource("/views/password.fxml"));
-
-		try {
-			root = passwordLoader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		PasswordController passwordController = passwordLoader.getController();
-
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/views/gui.css");
-		passwordWindow.setScene(scene);
-		passwordWindow.setTitle("Password");
-		passwordWindow.setResizable(false);
-		passwordWindow.show();
-
-	}*/
+		return alert;
+	}
 }

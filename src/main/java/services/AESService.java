@@ -124,21 +124,6 @@ public class AESService {
         Path path = Paths.get(toFile);
         Files.write(path, decryptedText);
     }
-
-    /*public static void main(String[] args) throws Exception {
-
-        String password = "password123";
-        String fromFile = "zizi.zip"; // from resources folder
-        String toFile = "zizi.enc";
-
-        // encrypt file
-
-        AESService.encryptFile(fromFile, toFile, password);
-
-        // decrypt file
-        AESService.decryptFile(toFile, "new.zip", "password1");
-    }*/
-
 }
 
 

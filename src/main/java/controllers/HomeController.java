@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
+import java.util.Locale;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ public class HomeController extends Application {
 	private Parent root;
 
 	public void start(Stage stage) {
+		Locale.setDefault(Locale.ENGLISH);
 		
 		FXMLLoader clientLoader = new FXMLLoader(getClass().getResource("/views/client.fxml"));
 
